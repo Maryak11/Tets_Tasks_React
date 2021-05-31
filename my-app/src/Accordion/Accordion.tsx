@@ -30,12 +30,14 @@ const AccordionTitle = (props: AccorTitlePops) => {
 type AccordionBodyPropsType = {
     items: ItemType[]
     onClick: (value: any) => void
+
 }
 
 const AccordionBody = (props: AccordionBodyPropsType) => {
     const itemsList = props.items.map((i,index) => <li
         onClick={() => props.onClick(i.value)}
         key={index}>{i.title}</li>)
+    console.log("")
     return <ul>
         {itemsList}
     </ul>
