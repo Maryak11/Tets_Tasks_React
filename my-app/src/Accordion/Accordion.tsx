@@ -33,7 +33,7 @@ type AccordionBodyPropsType = {
 
 }
 
-const AccordionBody = (props: AccordionBodyPropsType) => {
+export const AccordionBody = (props: AccordionBodyPropsType) => {
     const itemsList = props.items.map((i,index) => <li
         onClick={() => props.onClick(i.value)}
         key={index}>{i.title}</li>)

@@ -1,15 +1,27 @@
-import React, {useState} from 'react';
-import AccordionBody from "./AccordionBody";
+import React, {useReducer, useState} from 'react';
 
-import {createSecureServer} from "http2";
+
 
 type accordionType = {
     titleAcc: string
 }
+
+type ActionType = {
+    type: string,
+}
+
+const reducer = (state: boolean, action: ActionType) => {
+    if (action.type === "TOGGLE-COLLAPSED"){
+        return !state
+    }
+    return state
+}
 const UnControleAccordion = (props: accordionType) => {
-    const [collapsed, setCollapsed] = useState<boolean>(true)
+    // const [collapsed, setCollapsed] = useState<boolean>(true)
+    const [collapsed, dispatch] = useReducer(reducer, false)
+
     return <div>
-        <AccordionTitle title={props.titleAcc} onClick={() => {setCollapsed(!collapsed)}}/>
+        <AccordionTitle title={props.titleAcc} onClick={() => dispatch({type: "TOGGLE-COLLAPSED"})}/>
         {!collapsed && <AccordionBody/>}
     </div>
 }
@@ -22,4 +34,11 @@ const AccordionTitle = (props: AccorTitlePops) => {
     return  <h3 onClick={() => {props.onClick()}}>{props.title}</h3>
 }
 
+const AccordionBody = () => {
+    return <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+    </ul>
+}
 export default UnControleAccordion
