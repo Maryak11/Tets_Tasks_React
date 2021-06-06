@@ -1,4 +1,5 @@
 import React, {useReducer, useState} from 'react';
+import {reducer} from "./reducer";
 
 
 
@@ -6,23 +7,14 @@ type accordionType = {
     titleAcc: string
 }
 
-type ActionType = {
-    type: string,
-}
 
-const reducer = (state: boolean, action: ActionType) => {
-    if (action.type === "TOGGLE-COLLAPSED"){
-        return !state
-    }
-    return state
-}
 const UnControleAccordion = (props: accordionType) => {
     // const [collapsed, setCollapsed] = useState<boolean>(true)
-    const [collapsed, dispatch] = useReducer(reducer, false)
+    const [state, dispatch] = useReducer(reducer, {collapsed: false})
 
     return <div>
         <AccordionTitle title={props.titleAcc} onClick={() => dispatch({type: "TOGGLE-COLLAPSED"})}/>
-        {!collapsed && <AccordionBody/>}
+        { !state.collapsed && <AccordionBody/>}
     </div>
 }
 
