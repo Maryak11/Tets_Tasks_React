@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import s from "./MySelect.module.css"
 
 export type ItemsType = {
@@ -14,24 +14,31 @@ export type MySelectPropsType = {
 
 export const MySelect = (props: MySelectPropsType) => {
     const [active, setActive] = useState<boolean>(false)
+    const [hovered, setHovered] = useState(props.value)
     const selectedItem = props.items.find(el => el.value === props.value)
+    const selectedHover = props.items.find(el => el.value === hovered)
     const showItem = () => {
         setActive(!active)
     }
-
     const onChangeItem = (value: any) => {
         props.onChange(value)
         setActive(!active)
     }
 
+    // useEffect(() => {
+    //     setHovered(props.value)
+    // }, [props.value] )
 
-    return <div>
+
+    return <div className={s.selectTitle}>
         <span className={s.selectTitle} onClick={showItem}>{selectedItem && selectedItem.title}</span>
         {active &&
-        <div className={s.item}>{
+        <div className={s.items}>{
             props.items.map(el => <div
-            key={el.value}
-            onClick={() => onChangeItem(el.value)}
+                className={s.item + " " + (selectedHover === el ? s.selectedHover : "")}
+                key={el.value}
+                onMouseEnter={() => setHovered(el.value)}
+                onClick={() => onChangeItem(el.value)}
             >
                 {el.title}
             </div>)

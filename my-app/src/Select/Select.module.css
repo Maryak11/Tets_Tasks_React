@@ -6,9 +6,9 @@
 }
 
 .items{
-    position: absolute;
-    padding: 5px;
     border: 1px solid black;
+    min-height: 60px;
+    min-width: 60px;
 }
 
 .item.selected {
